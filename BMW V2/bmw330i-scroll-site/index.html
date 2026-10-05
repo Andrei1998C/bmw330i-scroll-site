@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BMW 330i M Sport — Visual Sequence</title>
+<style>
+:root{--bg:#05080c;--blue:#61caff;--fg:#f3f7fa;--muted:#b2bec9}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:auto}body{margin:0;background:var(--bg);color:var(--fg);font-family:Arial,Helvetica,sans-serif}
+.topbar{position:fixed;z-index:10;top:0;left:0;right:0;height:74px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#05080ce8,transparent);pointer-events:none}.logo{font-size:12px;font-weight:bold;letter-spacing:.25em}.topbar span{font-size:10px;letter-spacing:.2em;color:#d7e1e9}
+.scene{height:100vh;min-height:560px;position:sticky;top:0;overflow:hidden;background:#080d12}
+.scene img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+
+  opacity: 0;
+  transform: scale(1.045);
+
+  transition:
+    opacity 0.9s ease,
+    transform 5s cubic-bezier(.2,.65,.2,1);
+}
+
+.scene img.current {
+  opacity: 1;
+  transform: scale(1);
+}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,#03070bdc 0%,#03070b8a 35%,transparent 75%),linear-gradient(0deg,#05080cbd 0%,transparent 28%,#03070b44 100%);pointer-events:none}
+.copy{position:absolute;z-index:2;left:7vw;top:27%;max-width:440px;text-shadow:0 2px 20px #000}
+.kicker{font-size:10px;letter-spacing:.28em;color:var(--blue);text-transform:uppercase}
+h1{font-size:clamp(48px,7vw,88px);line-height:.88;letter-spacing:-.065em;margin:20px 0}h1 em{font-style:normal;color:var(--blue)}
+p{font-size:14px;line-height:1.7;color:#d0d9e0;max-width:370px}
+.counter{position:absolute;right:5vw;bottom:36px;z-index:3;font-size:11px;letter-spacing:.18em;color:#d5e2ea}
+.scrollhint{position:absolute;right:5vw;top:43%;z-index:3;writing-mode:vertical-rl;font-size:9px;letter-spacing:.24em;color:#d9e5ed}
+.progress{position:absolute;bottom:0;left:0;height:2px;background:var(--blue);width:0;z-index:4}
+.discover-link {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 13px 20px;
+  border: 1px solid var(--blue);
+  color: white;
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 3px;
+  transition: background .3s ease, color .3s ease;
+  pointer-events: auto;
+}
+
+.discover-link:hover {
+  background: var(--blue);
+  color: #05080c;
+}
+
+.details-section {
+  min-height: 100vh;
+  padding: 120px 10%;
+  display: flex;
+  align-items: center;
+  background: #080d12;
+  color: white;
+  scroll-margin-top: 0;
+}
+
+.details-content {
+  max-width: 760px;
+}
+
+.details-content .eyebrow {
+  color: var(--blue);
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+
+.details-content h2 {
+  font-size: clamp(38px, 6vw, 76px);
+  line-height: 1;
+  margin: 20px 0;
+}
+
+.details-content p {
+  max-width: 650px;
+  color: #b2bec9;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 25px;
+  color: var(--blue);
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+.story{position:relative;margin-top:-100vh;pointer-events:none}
+.step{height:100vh;min-height:560px;position:relative}
+.footer{padding:32px 5vw;background:#05080c;display:flex;justify-content:space-between;color:#7d8c99;font-size:9px;letter-spacing:.17em}
+@media(max-width:700px){.topbar{height:60px}.topbar span{font-size:8px}.scene img{object-position:60% center}.shade{background:linear-gradient(90deg,#03070bbf,transparent 100%),linear-gradient(0deg,#05080cbb,transparent 45%)}.copy{top:20%;left:7vw;right:7vw}.scrollhint{right:4vw}.footer{gap:12px;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){.scene img{transition:none}}
+
+
+/* =========================================
+   INDEX PAGE TRANSITION
+   ========================================= */
+.page-transition{position:fixed;inset:0;background:#02050a;z-index:99999;pointer-events:none;opacity:1;transition:opacity 1s ease}
+.page-transition::before{content:"";position:absolute;width:80vw;height:80vh;left:50%;top:50%;transform:translate(-50%,-50%) scale(1.2);background:radial-gradient(ellipse at center,rgba(65,150,255,.25) 0%,rgba(65,150,255,.14) 25%,rgba(65,150,255,.05) 50%,transparent 72%);filter:blur(45px);opacity:1;transition:opacity 1s ease,transform 1s ease}
+.page-transition.loaded{opacity:0}
+.page-transition.loaded::before{opacity:0;transform:translate(-50%,-50%) scale(1)}
+@media(prefers-reduced-motion:reduce){.page-transition,.page-transition::before{transition:none}}
+
+/* =========================================
+   CINEMATIC TEXT TRANSITION
+   ========================================= */
+
+.copy {
+  perspective: 1000px;
+}
+
+.copy.cinematic-out .kicker,
+.copy.cinematic-out h1,
+.copy.cinematic-out p,
+.copy.cinematic-out .discover-link {
+  opacity: 0;
+  transform: translateY(-18px);
+}
+
+.copy .kicker,
+.copy h1,
+.copy p,
+.copy .discover-link {
+  opacity: 1;
+  transform: translateY(0);
+
+  transition:
+    opacity 0.45s ease,
+    transform 0.55s cubic-bezier(.2,.7,.2,1);
+}
+
+.copy h1 {
+  transition-delay: 0.04s;
+}
+
+.copy p {
+  transition-delay: 0.08s;
+}
+
+.copy .discover-link {
+  transition-delay: 0.12s;
+}
+/* =========================================
+   CINEMATIC BLUE PULSE
+   ========================================= */
+
+.cinematic-pulse {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(80, 170, 255, 0.16) 0%,
+      rgba(80, 170, 255, 0.07) 28%,
+      transparent 65%
+    );
+
+  filter: blur(35px);
+
+  transition:
+    opacity 0.35s ease;
+}
+
+.cinematic-pulse.active {
+  opacity: 1;
+}
+
+.m-watermark {
+  position: absolute;
+  top: 50%;
+  right: 5vw;
+  transform: translateY(-50%) rotate(90deg);
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.55em;
+  color: rgba(255, 255, 255, 0.22);
+
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 4;
+
+  writing-mode: vertical-rl;
+}
+
+</style>
+
+</head>
+<body>
+
+  <div class="page-transition" id="pageTransition">
+    <div class="transition-glow"></div>
+  </div>
+<div class="cinematic-pulse" id="cinematicPulse"></div>
+
+<header class="topbar"><div class="logo">BMW / 330i M SPORT</div><span>DESIGN · PERFORMANCE · PRESENCE</span></header>
+<div class="scene" aria-label="BMW photo sequence">
+  <img src="images/angle-01.webp" class="current" alt="BMW 330i front three-quarter view">
+  <img src="images/angle-02.webp" alt="BMW 330i front view">
+  <img src="images/angle-03.webp" alt="BMW 330i alternate front angle">
+  <img src="images/angle-04.webp" alt="BMW wheel and side detail">
+  <img src="images/angle-05.webp" alt="BMW grille detail">
+  <img src="images/angle-06.webp" alt="BMW rear side detail">
+  <img src="images/angle-07.webp" alt="BMW rear three-quarter view">
+  <img src="images/angle-08.webp" alt="BMW parking display">
+  <img src="images/angle-09.webp" alt="BMW cockpit and steering wheel">
+  <img src="images/angle-10.webp" alt="BMW interior and center console">
+  <div class="m-watermark">M SPORT</div>
+  <div class="shade"></div>
+  <div class="copy">
+    <div class="kicker" id="kicker">The 3 Series · M Sport</div>
+  
+    <h1 id="headline">
+      SPORTINESS<br>IN EVERY<br><em>DETAIL.</em>
+    </h1>
+  
+    <p id="description">
+      A visual walkaround of the BMW 330i M Sport.
+      Scroll to move through the supplied photo angles.
+    </p>
+  
+    <a href="details/detail-01.html" class="discover-link" id="discover">
+      DISCOVER MORE ↗
+    </a>
+  </div>
+  <div class="scrollhint">SCROLL TO EXPLORE ↓</div><div class="counter" id="counter">01 / 10</div><div class="progress" id="progress"></div>
+</div>
+<div class="story" id="story">
+<section class="step" data-title="THE 3 SERIES · M SPORT" data-head="SPORTINESS<br>IN EVERY<br><em>DETAIL.</em>"
+  data-desc="A visual introduction to the BMW 330i M Sport. Explore its distinctive design, athletic proportions and carefully crafted details.">
+</section>
+
+<section class="step" data-title="01 — FRONT DESIGN" data-head="ICONIC<br><em>PRESENCE.</em>"
+  data-desc="The front fascia establishes the character of the 330i M Sport. Its kidney grille, sculpted bumper and distinctive lighting create a confident visual identity.">
+</section>
+
+<section class="step" data-title="02 — EXTERIOR PROFILE" data-head="FORM MEETS<br><em>FUNCTION.</em>"
+  data-desc="The flowing body lines connect elegance with a dynamic stance. Every angle contributes to the balanced proportions of this sport-oriented sedan.">
+</section>
+
+<section class="step" data-title="03 — M SPORT DETAILS" data-head="DETAILS<br>THAT <em>DEFINE.</em>"
+  data-desc="The wheel design and athletic side profile bring the M Sport character into focus. Carefully shaped details give the exterior its distinctive presence.">
+</section>
+
+<section class="step" data-title="04 — FRONT SIGNATURE" data-head="A CLOSER<br><em>LOOK.</em>"
+  data-desc="A closer view of the grille and front-end styling reveals the textures, contours and design elements that define the BMW identity.">
+</section>
+
+<section class="step" data-title="05 — REAR DETAILS" data-head="SHARP<br><em>LINES.</em>"
+  data-desc="The rear quarter showcases the relationship between the bodywork, lighting and carefully defined surfaces. The result is a cohesive exterior design.">
+</section>
+
+<section class="step" data-title="06 — REAR VIEW" data-head="LEAVE A<br><em>TRACE.</em>"
+  data-desc="The rear three-quarter perspective completes the exterior walkaround, highlighting the vehicle's proportions and distinctive rear styling.">
+</section>
+
+<section class="step" data-title="07 — TECHNOLOGY" data-head="INTELLIGENCE<br><em>ON BOARD.</em>"
+  data-desc="The parking display provides a visual interface for maneuvering information, bringing digital assistance into the everyday driving experience.">
+</section>
+
+<section class="step" data-title="08 — COCKPIT" data-head="DRIVER<br><em>FOCUSED.</em>"
+  data-desc="The cockpit places key controls and displays within the driver's field of view. The steering wheel and instrument area create a purposeful driving environment.">
+</section>
+
+<section class="step" data-title="09 — INTERIOR" data-head="COMFORT IN<br><em>CONTROL.</em>"
+  data-desc="The center console and interior details bring together digital interfaces, practical controls and a carefully arranged cabin environment.">
+</section>
+</div>
+
+<footer class="footer">
+  <span>BMW 330i M SPORT</span>
+  <span>UNOFFICIAL VISUAL CONCEPT</span>
+  <span>BMW is a trademark of BMW AG</span>
+</footer>
+<script>
+const imgs=[...document.querySelectorAll('.scene img')];
+const steps=[...document.querySelectorAll('.step')];
+const title=document.getElementById('kicker');
+const head=document.getElementById('headline');
+const desc=document.getElementById('description');
+const count=document.getElementById('counter');
+const bar=document.getElementById('progress');
+const discover=document.getElementById('discover');
+const pageTransition=document.getElementById('pageTransition');
+let active=-1;
+
+function update(){
+  const story=document.getElementById('story');
+  const rect=story.getBoundingClientRect();
+  const total=story.offsetHeight-window.innerHeight;
+  const traveled=Math.max(0,Math.min(total,-rect.top));
+  const progress=total>0?traveled/total:0;
+  const index=Math.min(imgs.length-1,Math.floor(progress*imgs.length));
+
+  if(index!==active){
+    imgs.forEach((img,i)=>img.classList.toggle('current',i===index));
+    const step=steps[index];
+    if(step){
+      title.textContent=step.dataset.title||'';
+      head.innerHTML=step.dataset.head||'';
+      desc.textContent=step.dataset.desc||'';
+    }
+    discover.href='details/detail-'+String(index+1).padStart(2,'0')+'.html';
+    count.textContent=String(index+1).padStart(2,'0')+' / '+String(imgs.length).padStart(2,'0');
+    active=index;
+  }
+  bar.style.width=(progress*100)+'%';
+}
+
+discover.addEventListener('click',function(event){
+  event.preventDefault();
+  const target=this.href;
+  sessionStorage.setItem('bmwReturnPosition',String(window.scrollY));
+  pageTransition.classList.remove('loaded');
+  setTimeout(()=>{window.location.href=target;},1000);
+});
+
+function restorePosition(){
+  const savedPosition=sessionStorage.getItem('bmwReturnPosition');
+  const params=new URLSearchParams(window.location.search);
+  const returning=params.get('return')==='1'&&savedPosition!==null;
+
+  if(returning){
+    const position=Number(savedPosition);
+    pageTransition.classList.remove('loaded');
+    window.scrollTo(0,position);
+    update();
+    requestAnimationFrame(()=>{
+      window.scrollTo(0,position);
+      update();
+      requestAnimationFrame(()=>{
+        window.scrollTo(0,position);
+        update();
+        setTimeout(()=>pageTransition.classList.add('loaded'),50);
+      });
+    });
+    sessionStorage.removeItem('bmwReturnPosition');
+    history.replaceState(null,'',window.location.pathname);
+    return;
+  }
+
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>pageTransition.classList.add('loaded'));
+  });
+}
+
+window.addEventListener('scroll',update,{passive:true});
+window.addEventListener('resize',update);
+update();
+window.addEventListener('load',restorePosition);
+</script>
+</body></html>

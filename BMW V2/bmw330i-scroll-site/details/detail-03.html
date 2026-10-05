@@ -1,0 +1,534 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BMW 330i M Sport</title>
+
+  <style>
+    /* =========================================
+         BASIC
+         ========================================= */
+
+    :root {
+      --fg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #05080c;
+      color: var(--fg);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+
+    /* =========================================
+         BACKGROUND IMAGE
+         ========================================= */
+
+    .background-image {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.55;
+    }
+
+    .background-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+
+      background:
+        linear-gradient(90deg,
+          #03070be8 0%,
+          #03070b9c 55%,
+          #03070b45 100%),
+        linear-gradient(0deg,
+          #05080ce8 0%,
+          transparent 65%);
+
+      pointer-events: none;
+    }
+
+
+    /* =========================================
+         CONTENT
+         ========================================= */
+
+    .topbar,
+    .content,
+    footer {
+      position: relative;
+      z-index: 3;
+    }
+
+    .detail-intro {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 8vw 120px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .detail-intro-content {
+      max-width: 850px;
+    }
+
+
+    /* BLUE ACCENT */
+
+    .detail-kicker {
+      display: block;
+      margin-bottom: 28px;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #5da9ff;
+      font-weight: 600;
+    }
+
+
+    /* MAIN TITLE */
+
+    .detail-intro h1 {
+      margin: 0 0 42px;
+      font-size: clamp(48px, 7vw, 100px);
+      line-height: 0.9;
+      letter-spacing: -4px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+
+    /* DESCRIPTION */
+
+    .detail-intro p {
+      max-width: 760px;
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .detail-intro strong {
+      color: #5da9ff;
+      font-weight: 500;
+    }
+
+
+    /* =========================================
+         DISCOVER / BACK LINK
+         ========================================= */
+
+    .discover-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 45px;
+
+      color: #5da9ff;
+      text-decoration: none;
+
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+
+      transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .discover-link:hover {
+      color: #ffffff;
+      transform: translateX(6px);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 45px;
+      padding: 13px 20px;
+
+      border: 1px solid #61caff;
+
+      color: white;
+      text-decoration: none;
+
+      font-size: 10px;
+      letter-spacing: 3px;
+
+      transition:
+        background 0.3s ease,
+        color 0.3s ease;
+    }
+
+    back-link:hover {
+      background: #61caff;
+      color: #05080c;
+    }
+
+
+    /* =========================================
+         BMW BLUE + WHITE AMBIENT LIGHT
+         ========================================= */
+
+    body::before {
+      content: "";
+
+      position: fixed;
+
+      width: 90vw;
+      height: 85vh;
+
+      left: -30vw;
+      top: -15vh;
+
+      background:
+        radial-gradient(ellipse at center,
+          rgba(65, 150, 255, 0.24) 0%,
+          rgba(65, 150, 255, 0.16) 25%,
+          rgba(65, 150, 255, 0.08) 45%,
+          rgba(255, 255, 255, 0.035) 58%,
+          transparent 75%);
+
+      filter: blur(35px);
+
+      pointer-events: none;
+
+      z-index: 2;
+
+      transform: rotate(-18deg);
+
+      animation:
+        blueAmbientLight 15s ease-in-out infinite alternate;
+    }
+
+
+    body::after {
+      content: "";
+
+      position: fixed;
+
+      width: 75vw;
+      height: 80vh;
+
+      right: -30vw;
+      bottom: -20vh;
+
+      background:
+        radial-gradient(ellipse at center,
+          rgba(45, 125, 255, 0.18) 0%,
+          rgba(55, 135, 255, 0.11) 28%,
+          rgba(255, 255, 255, 0.045) 48%,
+          rgba(255, 255, 255, 0.018) 60%,
+          transparent 75%);
+
+      filter: blur(45px);
+
+      pointer-events: none;
+
+      z-index: 2;
+
+      transform: rotate(20deg);
+
+      animation:
+        blueAmbientLight2 18s ease-in-out infinite alternate;
+    }
+
+
+    @keyframes blueAmbientLight {
+
+      0% {
+        transform:
+          translate(-5vw, -3vh) rotate(-18deg) scale(1);
+      }
+
+      50% {
+        transform:
+          translate(5vw, 3vh) rotate(-14deg) scale(1.05);
+      }
+
+      100% {
+        transform:
+          translate(12vw, 8vh) rotate(-10deg) scale(1.1);
+      }
+
+    }
+
+
+    @keyframes blueAmbientLight2 {
+
+      0% {
+        transform:
+          translate(5vw, 5vh) rotate(20deg) scale(1);
+      }
+
+      50% {
+        transform:
+          translate(-4vw, -3vh) rotate(15deg) scale(1.05);
+      }
+
+      100% {
+        transform:
+          translate(-10vw, -8vh) rotate(10deg) scale(1.1);
+      }
+
+    }
+
+
+    /* =========================================
+     PAGE TRANSITION
+     ========================================= */
+
+    .page-transition {
+      position: fixed;
+      inset: 0;
+
+      background: #02050a;
+
+      z-index: 99999;
+      pointer-events: none;
+
+      opacity: 1;
+
+      transition: opacity 1s ease;
+    }
+
+
+    /* =========================================
+     BLUE GLOW - ENTER
+     ========================================= */
+
+    .page-transition::before {
+      content: "";
+
+      position: absolute;
+
+      width: 80vw;
+      height: 80vh;
+
+      left: 50%;
+      top: 50%;
+
+      transform:
+        translate(-50%, -50%) scale(1.2);
+
+      background:
+        radial-gradient(ellipse at center,
+          rgba(65, 150, 255, 0.25) 0%,
+          rgba(65, 150, 255, 0.14) 25%,
+          rgba(65, 150, 255, 0.05) 50%,
+          transparent 72%);
+
+      filter: blur(45px);
+
+      opacity: 1;
+
+      transition:
+        opacity 1s ease,
+        transform 1s ease;
+    }
+
+
+    /* ENTER FINISHED */
+
+    .page-transition.loaded {
+      opacity: 0;
+    }
+
+    .page-transition.loaded::before {
+      opacity: 0;
+
+      transform:
+        translate(-50%, -50%) scale(1);
+    }
+
+
+    /* =========================================
+     WHITE GLOW - BACK
+     ========================================= */
+
+    .page-transition.white-exit {
+      background: #02050a;
+      opacity: 1;
+    }
+
+    .page-transition.white-exit::before {
+      background:
+        radial-gradient(ellipse at center,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 255, 255, 0.55) 18%,
+          rgba(255, 255, 255, 0.20) 42%,
+          rgba(255, 255, 255, 0.06) 58%,
+          transparent 75%);
+
+      filter: blur(45px);
+
+      opacity: 1;
+
+      transform:
+        translate(-50%, -50%) scale(1.2);
+
+      transition:
+        opacity 1s ease,
+        transform 1s ease;
+    }
+
+
+    /* =========================================
+         MOBILE
+         ========================================= */
+
+    @media (max-width: 800px) {
+
+      .detail-intro {
+        min-height: 100vh;
+        padding: 120px 7vw 80px;
+        align-items: center;
+      }
+
+      .detail-kicker {
+        font-size: 10px;
+        letter-spacing: 3px;
+        margin-bottom: 22px;
+      }
+
+      .detail-intro h1 {
+        font-size: clamp(48px, 15vw, 72px);
+        letter-spacing: -3px;
+        margin-bottom: 32px;
+      }
+
+      .detail-intro p {
+        font-size: 15px;
+        line-height: 1.75;
+      }
+
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+  <!-- PAGE TRANSITION -->
+
+  <div class="page-transition" id="pageTransition">
+  </div>
+
+
+  <!-- BACKGROUND -->
+
+  <img src="../images/angle-06.webp" class="background-image" alt="">
+
+  <div class="background-overlay"></div>
+
+
+  <!-- TOP BAR -->
+
+  <header class="topbar">
+
+    <div class="logo">
+      BMW / 330i M SPORT
+    </div>
+
+    <span>
+      DESIGN · PERFORMANCE · PRESENCE
+    </span>
+
+  </header>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="content">
+
+    <section class="detail-intro">
+
+      <div class="detail-intro-content">
+
+        <span class="detail-kicker">
+          BMW 330i M SPORT
+        </span>
+
+
+        <h1>
+          PERFORMANCE.<br>
+          DYNAMICS.<br>
+          PRESTIGE.
+        </h1>
+
+
+        <p>
+          Performance Engineering: <strong>Lowered M Sport Suspension</strong> lowers the ride height for better cornering stability, coupled with
+          an upgraded variable <strong>sport steering setup </strong>for direct, tactile feedback
+          Equipped with bicolour <strong>18" or 19" M Light Alloy wheels</strong>featuring a distinct double-spoke design that showcases the
+          performance braking system beneath.
+        </p>
+
+
+        <a href="../index.html?return=1" class="back-link">
+          ← BACK TO THE EXPERIENCE
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- PAGE TRANSITION JAVASCRIPT -->
+  <script>
+    const pageTransition = document.getElementById('pageTransition');
+    const backLink = document.querySelector('.back-link');
+
+    /* =========================================
+       ENTER DETAIL PAGE
+       ========================================= */
+
+    window.addEventListener('load', () => {
+      requestAnimationFrame(() => {
+        pageTransition.classList.add('loaded');
+      });
+    });
+
+
+    /* =========================================
+       BACK TO THE EXPERIENCE
+       ========================================= */
+
+    if (backLink) {
+      backLink.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // Salvăm destinația corectă.
+        const target = '../index.html?return=1';
+
+        // Pornim tranziția albă.
+        pageTransition.classList.remove('loaded');
+        pageTransition.classList.add('white-exit');
+
+        // Așteptăm 1 secundă înainte de navigare.
+        setTimeout(() => {
+          window.location.href = target;
+        }, 1000);
+      });
+    }
+  </script>
+
+</body>
+
+</html>
